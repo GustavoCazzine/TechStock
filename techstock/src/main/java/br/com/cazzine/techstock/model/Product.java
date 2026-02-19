@@ -15,7 +15,7 @@ public class  Product {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.amount = amount;
+        this.quantity = amount;
     }
 
     public Integer getId() {
@@ -43,10 +43,10 @@ public class  Product {
     }
 
     public int getAmount() {
-        return amount;
+        return quantity;
     }
 
     public void setAmount(int amount) {
-        this.amount = amount;
+        this.quantity = amount;
     }
 }
