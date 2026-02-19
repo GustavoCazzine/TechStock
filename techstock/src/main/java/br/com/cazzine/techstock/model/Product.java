@@ -1,15 +1,17 @@
 package br.com.cazzine.techstock.model;
 
-public abstract class  Product {
+import java.math.BigDecimal;
+
+public class  Product {
     private Integer id;
     private String name;
-    private double price;
-    private int amount;
+    private BigDecimal price;
+    private int quantity;
 
     public Product() {
     }
 
-    public Product(Integer id, String name, double price, int amount) {
+    public Product(Integer id, String name, BigDecimal price, int amount) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -32,11 +34,11 @@ public abstract class  Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
