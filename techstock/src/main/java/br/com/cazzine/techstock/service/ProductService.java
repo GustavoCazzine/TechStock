@@ -1,7 +1,9 @@
 package br.com.cazzine.techstock.service;
 
+import br.com.cazzine.techstock.Repository.ProductRepository;
 import br.com.cazzine.techstock.exceptions.ProductNotFound;
 import br.com.cazzine.techstock.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -10,39 +12,33 @@ import java.util.List;
 
 @Service
 public class ProductService {
-    private List<Product> products = new ArrayList<>();
+    @Autowired
+    private ProductRepository repository;
 
     public Product createProduct(String name, BigDecimal price, int quantity){
-         Integer newId = products.size() + 1;
-         Product newProduct = new Product(newId, name, price, quantity);
-         products.add(newProduct);
-         return newProduct;
+         return repository.save(new Product(name, price, quantity));
     }
 
     public List<Product> getAllProducts(){
-        return products;
+        return repository.findAll();
     }
 
     public Product findProductById(Integer id) {
-        return products.stream()
-                .filter(product -> product.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new ProductNotFound("product not found!"));
+        return repository.findById(id).orElseThrow();
     }
 
     public Product toUpdateProduct(Integer id, Product updatedProduct){
-          return products.stream()
-                  .filter(product -> product.getId().equals(id))
-                  .findFirst()
-                  .map(product -> {product.setName(updatedProduct.getName());
-                      product.setQuantity(updatedProduct.getQuantity());
-                      product.setPrice(updatedProduct.getPrice());
-                      return product;
-                  })
-                  .orElseThrow(() -> new ProductNotFound("product not found"));
+         Product productUpdate = findProductById(id);
+
+         productUpdate.setName(updatedProduct.getName());
+         productUpdate.setQuantity(updatedProduct.getQuantity());
+         productUpdate.setPrice(updatedProduct.getPrice());
+
+         return repository.save(productUpdate);
+
     }
 
-    public Boolean deleteProduct(Integer id){
-        return products.removeIf(product -> product.getId().equals(id));
+    public void deleteProduct(Integer id){
+        repository.deleteById(id);
     }
 }

@@ -1,8 +1,18 @@
 package br.com.cazzine.techstock.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.math.BigDecimal;
 
+
+@Entity
 public class  Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private BigDecimal price;
@@ -11,8 +21,7 @@ public class  Product {
     public Product() {
     }
 
-    public Product(Integer id, String name, BigDecimal price, int quantity) {
-        this.id = id;
+    public Product(String name, BigDecimal price, int quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
