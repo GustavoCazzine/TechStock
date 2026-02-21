@@ -11,11 +11,11 @@ public class  Product {
     public Product() {
     }
 
-    public Product(Integer id, String name, BigDecimal price, int amount) {
+    public Product(Integer id, String name, BigDecimal price, int quantity) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.quantity = amount;
+        this.quantity = quantity;
     }
 
     public Integer getId() {
@@ -42,11 +42,11 @@ public class  Product {
         this.price = price;
     }
 
-    public int getAmount() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setAmount(int amount) {
-        this.quantity = amount;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

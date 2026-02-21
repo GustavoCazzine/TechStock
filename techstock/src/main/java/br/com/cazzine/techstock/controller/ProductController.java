@@ -13,7 +13,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    ProductService service;
+    private ProductService service;
 
     @GetMapping
     public List<Product> getAllProducts(){
@@ -22,21 +22,17 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable Integer id){
-        try {
-            return service.findProductById(id);
-        }catch (ProductNotFound e) {
-            System.err.println("Error: " + e.getMessage());
-        }   return null;
+        return service.findProductById(id);
     }
 
     @PostMapping
-    public Product creatProduct(@RequestBody Product informationsProduct){
-        return service.createProduct(informationsProduct.getName(), informationsProduct.getPrice(), informationsProduct.getAmount());
+    public Product createProduct(@RequestBody Product newProduct){
+        return service.createProduct(newProduct.getName(), newProduct.getPrice(), newProduct.getQuantity());
     }
 
     @PutMapping("/{id}")
-    public Product toUpdateProduct(@PathVariable Integer id, @RequestBody Product informationsToUpdate ){
-        return service.toUpdateProduct(id, informationsToUpdate);
+    public Product updateProduct(@PathVariable Integer id, @RequestBody Product updateProduct ){
+        return service.toUpdateProduct(id, updateProduct);
     }
 
     @DeleteMapping("/{id}")

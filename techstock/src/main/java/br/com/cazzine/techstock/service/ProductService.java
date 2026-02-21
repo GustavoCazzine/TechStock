@@ -35,7 +35,7 @@ public class ProductService {
                   .filter(product -> product.getId().equals(id))
                   .findFirst()
                   .map(product -> {product.setName(updatedProduct.getName());
-                      product.setAmount(updatedProduct.getAmount());
+                      product.setQuantity(updatedProduct.getQuantity());
                       product.setPrice(updatedProduct.getPrice());
                       return product;
                   })
@@ -43,10 +43,6 @@ public class ProductService {
     }
 
     public Boolean deleteProduct(Integer id){
-        try{
-            return products.removeIf(product -> product.getId().equals(id));
-        } catch (ProductNotFound e){
-            System.err.println("Error: " + e.getMessage());
-        } return false;
+        return products.removeIf(product -> product.getId().equals(id));
     }
 }
