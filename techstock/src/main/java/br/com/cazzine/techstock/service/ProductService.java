@@ -1,13 +1,13 @@
 package br.com.cazzine.techstock.service;
 
 import br.com.cazzine.techstock.Repository.ProductRepository;
+import br.com.cazzine.techstock.dto.ProductRequestDTO;
 import br.com.cazzine.techstock.exceptions.ProductNotFound;
 import br.com.cazzine.techstock.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,10 +24,10 @@ public class ProductService {
     }
 
     public Product findProductById(Integer id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow(() -> new ProductNotFound("Produto não encontrado!"));
     }
 
-    public Product toUpdateProduct(Integer id, Product updatedProduct){
+    public Product toUpdateProduct(Integer id, ProductRequestDTO updatedProduct){
          Product productUpdate = findProductById(id);
 
          productUpdate.setName(updatedProduct.getName());
